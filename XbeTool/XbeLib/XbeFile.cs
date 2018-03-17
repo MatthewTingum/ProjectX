@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XMarkDown;
 
 namespace XbeLib
 {
@@ -211,15 +212,13 @@ namespace XbeLib
         // Retail
         public void SignGreen()
         {
-            // Not 4 U ~ [E N I G M A] :)
+            
         }
 
         // Debug
         public void SignRed()
         {
-            // Did grep call?
-            // I heard `RSA` is hanging out in the XDK
-            // Fun fact - This may be required to get your software running on debug / DVT# -- dexbe was close
+            
         }
 
         public void ExtractBitmap()
@@ -232,9 +231,47 @@ namespace XbeLib
 
         }
 
-        public byte[] GenerateMD()
+        public string GenerateMD()
         {
-            return new byte[] { };
+            string md = "";
+
+            md += MDUtil.MDTableHeader("Field Name", "Description");
+            md += MDUtil.MDTableRow("Magic Number", MagicNumber);
+            md += MDUtil.MDTableRow("Digital Signature", BitConverter.ToString(DigitalSignature).Replace("-", " "));
+            md += MDUtil.MDTableRow("Base Address", BaseAddress.ToString());
+            md += MDUtil.MDTableRow("Size of Headers", SizeOfHeaders.ToString());
+            md += MDUtil.MDTableRow("Size of Image", SizeOfImage.ToString());
+            md += MDUtil.MDTableRow("Size of Header", SizeOfImageHeader.ToString());
+            //md += MDUtil.MDTableRow("Time / Date", TimeDate.ToString());
+            md += MDUtil.MDTableRow("Certificate Address", CertificateAddress.ToString());
+            md += MDUtil.MDTableRow("Number of Sections", NumberOfSections.ToString());
+            md += MDUtil.MDTableRow("Section Header Address", SectionHeaderAddress.ToString());
+            md += MDUtil.MDTableRow("Initialization Flags", Initializationflags.ToString());
+            md += MDUtil.MDTableRow("Entry Point", EntryPoint.ToString());
+            md += MDUtil.MDTableRow("TLS Address", TLSAddress.ToString());
+            md += MDUtil.MDTableRow("PE Stack Commit", PEStackCommit.ToString());
+            md += MDUtil.MDTableRow("PE Heap Reserve", PEHeapReserve.ToString());
+            md += MDUtil.MDTableRow("PE Heap Commit", PEHeapCommit.ToString());
+            md += MDUtil.MDTableRow("PE Base Address", PEBaseAddress.ToString());
+            md += MDUtil.MDTableRow("PE Size of Image", PESizeOfImage.ToString());
+            md += MDUtil.MDTableRow("PE Checksum", PEChecksum.ToString());
+            //md += MDUtil.MDTableRow("PE Time / Date", PETimeDate.ToString());
+            md += MDUtil.MDTableRow("Debug Path Name Address", DebugPathNameAddress.ToString());
+            //md += MDUtil.MDTableRow("Debug Path Name", DebugPathName.ToString());
+            md += MDUtil.MDTableRow("Debug File Name Address", DebugFileNameAddress.ToString());
+            //md += MDUtil.MDTableRow("Debug File Name", DebugFileName);
+            md += MDUtil.MDTableRow("Debug Unicode File Name Address", DebugUnicodeFileNameAddress.ToString());
+            //md += MDUtil.MDTableRow("Debug Unicode File Name", DebugUnicodeFileName);
+            md += MDUtil.MDTableRow("Kernel Image Thunk Address", KernelImageThunkAddress.ToString());
+            md += MDUtil.MDTableRow("Non-Kernel Import Directory Address", NonKernelImportDirectoryAddress.ToString());
+            md += MDUtil.MDTableRow("Number of Library Versions", NumberOfLibraryVersions.ToString());
+            md += MDUtil.MDTableRow("Library Versions Address", LibraryVersionsAddress.ToString());
+            md += MDUtil.MDTableRow("Kernel Library Address", KernelLibraryAddress.ToString());
+            md += MDUtil.MDTableRow("XAPI Library Version Address", XAPILibraryVersionAddress.ToString());
+            md += MDUtil.MDTableRow("Logo Bitmap Address", LogoBitmapAddress.ToString());
+            md += MDUtil.MDTableRow("Logo Bitmap Size", LogoBitmapSize.ToString());
+
+            return md;
         }
 
         // TODO: belongs in a common library

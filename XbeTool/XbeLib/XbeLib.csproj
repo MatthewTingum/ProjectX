@@ -44,5 +44,11 @@
     <Compile Include="XbeFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XMarkDown\XMarkDown.csproj">
+      <Project>{0f0bf45b-3e6a-4bad-8439-ea7521df87aa}</Project>
+      <Name>XMarkDown</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
