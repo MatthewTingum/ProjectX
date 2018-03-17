@@ -1,0 +1,7 @@
+XbeTool/bin/
+XbeTool/obj/
+XbeLib/bin/
+XbeLib/obj/
+.vs/
+*.exe
+*.dll
