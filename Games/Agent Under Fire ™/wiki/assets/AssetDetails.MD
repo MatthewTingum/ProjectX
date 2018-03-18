@@ -1,8 +1,7 @@
-```
 # Asset Details
 
 | File Name | Size | MD5 | File Type | Comments |
-|---|---|
+|---|---|---|---|---|
 | twine.flo | 4496 | 37C06985550F17654E25481FFD137BBA |  |  |
 | alp1_1.xbc | 19435616 | B1FACD04A680D0312CD6783E619283DE |  |  |
 | alp1_2.xbc | 18458304 | F299104284CFD20D50B1C7D03363C53B |  |  |
@@ -321,4 +320,3 @@
 | music.viv | 74685360 | 29747B79A2C05231776C728D2CCC975D |  |  |
 | speech.viv | 95931584 | 73E4093EA95547E304B7BD84D537D066 |  |  |
 | Driving.xbe | 1957888 | 50A97227E84102401606C09D18DDFBFB |  |  |
-```

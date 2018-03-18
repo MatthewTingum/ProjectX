@@ -203,7 +203,7 @@ namespace XbeTool.Utility
             List<string> filesList = new List<string>(files);
             filesList.Sort();
 
-            string md = "```\n# Asset Details\n\n";
+            string md = "# Asset Details\n\n";
             md += XMarkDown.MDUtil.MDTableHeader("File Name", "Size", "MD5", "File Type", "Comments");
 
             foreach (string file in filesList)
@@ -222,7 +222,6 @@ namespace XbeTool.Utility
                 md += XMarkDown.MDUtil.MDTableRow(fileInfo.Name, fileInfo.Length.ToString(), BitConverter.ToString(hash).Replace("-", ""), "", "");
             }
 
-            md += "```";
             return md;
         }
     }
