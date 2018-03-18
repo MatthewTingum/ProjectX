@@ -21,6 +21,7 @@ namespace XbeTool
             string titleName = xbe.Certificate.TitleName;
             //Directory.CreateDirectory(@"..\..\..\..\Games\" + titleName + @"\wiki\");
             Directory.CreateDirectory(@"..\..\..\..\Games\" + titleName + @"\wiki\sections\");
+            Directory.CreateDirectory(@"..\..\..\..\Games\" + titleName + @"\wiki\libraries\");
             File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\ImageHeader.MD", mdImageHeader);
             File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\Certificate.MD", mdCertificate);
 
@@ -28,6 +29,13 @@ namespace XbeTool
             {
                 string mdSectionHeader = section.GenerateMD();
                 File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\sections\" + section.SectionName + ".MD", mdSectionHeader);
+            }
+
+            foreach (LibraryVersion version in xbe.LibraryVersions)
+            {
+                string mdLibraryVersion = version.GenerateMD();
+                Console.WriteLine(version.LibraryName);
+                File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\libraries\" + version.LibraryName + ".MD", mdLibraryVersion);
             }
 
         }

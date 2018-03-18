@@ -21,7 +21,7 @@ namespace XbeLib
         public ImageHeader ImageHeader;
         public Certificate Certificate;
         public List<SectionHeader> SectionHeaders;
-
+        public List<LibraryVersion> LibraryVersions;
 
         public XbeFile(byte[] file)
         {
@@ -30,10 +30,16 @@ namespace XbeLib
             ImageHeader = new ImageHeader(file);
             Certificate = new Certificate(Util.SubArray(file, ImageHeader.CertificateAddress - ImageHeader.BaseAddress, 0x1D0));
             SectionHeaders = new List<SectionHeader>();
+            LibraryVersions = new List<LibraryVersion>();
 
             for (int i = 0; i < ImageHeader.NumberOfSections; i++)
             {
                 SectionHeaders.Add(new SectionHeader(Util.SubArray(file, ImageHeader.SectionHeaderAddress - ImageHeader.BaseAddress + (i * 0x38), 0x38), File, ImageHeader.BaseAddress));
+            }
+
+            for (int i = 0; i < ImageHeader.NumberOfLibraryVersions; i++)
+            {
+                LibraryVersions.Add(new LibraryVersion(Util.SubArray(file, ImageHeader.LibraryVersionsAddress - ImageHeader.BaseAddress + (i * 0x10), 0x10)));
             }
 
         }
