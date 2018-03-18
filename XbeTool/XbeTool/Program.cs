@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XbeLib;
 using XbeLib.XbeStructure;
+using XbeTool.Utility;
 
 namespace XbeTool
 {
@@ -13,32 +14,51 @@ namespace XbeTool
     {
         static void Main(string[] args)
         {
-            XbeFile xbe = new XbeFile(File.ReadAllBytes(@".\default.xbe"));
+
+            string path;
+            string directory;
+
+            if (args.Length > 0 && File.Exists(args[0]))
+            {
+                path = args[0];
+                directory = Path.GetDirectoryName(path);
+            }
+            else
+            {
+                Console.WriteLine("File error: File does not exist. Try dragging and dropping an xbe onto the program.");
+                Console.ReadLine();
+                return;
+            }
+
+
+            string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            XbeFile xbe = new XbeFile(File.ReadAllBytes(path));
 
             string mdImageHeader = xbe.ImageHeader.GenerateMD();
             string mdCertificate = xbe.Certificate.GenerateMD();
 
             string titleName = xbe.Certificate.TitleName;
             //Directory.CreateDirectory(@"..\..\..\..\Games\" + titleName + @"\wiki\");
-            Directory.CreateDirectory(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\sections\");
-            Directory.CreateDirectory(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\libraries\");
-            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\ImageHeader.MD", mdImageHeader);
-            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\Certificate.MD", mdCertificate);
+            Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\sections\");
+            Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\libraries\");
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\ImageHeader.MD", mdImageHeader);
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\Certificate.MD", mdCertificate);
 
             foreach (SectionHeader section in xbe.SectionHeaders)
             {
                 string mdSectionHeader = section.GenerateMD();
-                File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\sections\" + section.SectionName + ".MD", mdSectionHeader);
+                File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\sections\" + section.SectionName + ".MD", mdSectionHeader);
             }
 
             foreach (LibraryVersion version in xbe.LibraryVersions)
             {
                 string mdLibraryVersion = version.GenerateMD();
-                File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\libraries\" + version.LibraryName + ".MD", mdLibraryVersion);
+                File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\libraries\" + version.LibraryName + ".MD", mdLibraryVersion);
             }
 
             string mdTLS = xbe.TLS.GenerateMD();
-            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\TLS.MD", mdTLS);
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\TLS.MD", mdTLS);
 
             string mdMain = "";
             mdMain += "# " + titleName + "\n\n";
@@ -47,16 +67,21 @@ namespace XbeTool
             mdMain += "Archives\n\n";
             mdMain += "Debug Content\n\n";
 
-            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\README.MD", mdMain);
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\README.MD", mdMain);
 
             string mdStructMain = xbe.GenerateStructMainMD();
-            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\README.MD", mdStructMain);
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\README.MD", mdStructMain);
 
             string mdLibsMain = xbe.GenerateLibrariesMainMD();
-            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\libraries\README.MD", mdLibsMain);
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\libraries\README.MD", mdLibsMain);
 
             string mdSectionsMain = xbe.GenerateSectionsMainMD();
-            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\xbe\sections\README.MD", mdSectionsMain);
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\sections\README.MD", mdSectionsMain);
+
+            // Directory Structure
+            Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\");
+            string dirTree = Util.GenerateAssetMD(directory);
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\README.MD", dirTree);
 
         }
     }
