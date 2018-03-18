@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XbeLib.Utility;
 using XbeLib.XbeStructure;
 using XMarkDown;
 
@@ -18,7 +19,7 @@ namespace XbeLib
 
         private byte[] _File;
         public ImageHeader ImageHeader;
-        
+        public Certificate Certificate;
 
 
         public XbeFile(byte[] file)
@@ -26,6 +27,7 @@ namespace XbeLib
 
             _File = file;
             ImageHeader = new ImageHeader(file);
+            Certificate = new Certificate(Util.SubArray(file, ImageHeader.CertificateAddress - ImageHeader.BaseAddress, 0x1D0));
             
         }
 

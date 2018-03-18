@@ -13,9 +13,14 @@ namespace XbeTool
         static void Main(string[] args)
         {
             XbeFile xbe = new XbeFile(File.ReadAllBytes(@".\default.xbe"));
-            string markDown = xbe.ImageHeader.GenerateMD();
-            //xbe.UnicodeName
-            File.WriteAllText(@"..\..\..\..\Games\GameName\README.MD", markDown);
+
+            string mdImageHeader = xbe.ImageHeader.GenerateMD();
+            string mdCertificate = xbe.Certificate.GenerateMD();
+
+            string titleName = xbe.Certificate.TitleName;
+            Directory.CreateDirectory(@"..\..\..\..\Games\" + titleName + @"\");
+            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\ImageHeader.MD", mdImageHeader);
+            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\Certificate.MD", mdCertificate);
         }
     }
 }

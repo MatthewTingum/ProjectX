@@ -1,3 +1,5 @@
+# XBE Image Header
+
 | Field Name | Description |
 |---|---|
 | Magic Number | XBEH |

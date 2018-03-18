@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace XbeLib.Enum
+{
+    [Flags]
+    public enum AllowedMedia : uint
+    {
+        XBEIMAGE_MEDIA_TYPE_HARD_DISK = 0x00000001,
+        XBEIMAGE_MEDIA_TYPE_DVD_X2 = 0x00000002,
+        XBEIMAGE_MEDIA_TYPE_DVD_CD = 0x00000004,
+        XBEIMAGE_MEDIA_TYPE_CD = 0x00000008,
+        XBEIMAGE_MEDIA_TYPE_DVD_5_RO = 0x00000010,
+        XBEIMAGE_MEDIA_TYPE_DVD_9_RO = 0x00000020,
+        XBEIMAGE_MEDIA_TYPE_DVD_5_RW = 0x00000040,
+        XBEIMAGE_MEDIA_TYPE_DVD_9_RW = 0x00000080,
+        XBEIMAGE_MEDIA_TYPE_DONGLE = 0x00000100,
+        XBEIMAGE_MEDIA_TYPE_MEDIA_BOARD = 0x00000200,
+        XBEIMAGE_MEDIA_TYPE_NONSECURE_HARD_DISK = 0x40000000,
+        XBEIMAGE_MEDIA_TYPE_NONSECURE_MODE = 0x80000000,
+        XBEIMAGE_MEDIA_TYPE_MEDIA_MASK = 0x00FFFFFF
+    }
+}

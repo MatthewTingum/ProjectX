@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\AllowedMedia.cs" />
+    <Compile Include="Enum\GameRatings.cs" />
+    <Compile Include="Enum\GameRegions.cs" />
     <Compile Include="Enum\InitializationFlags.cs" />
     <Compile Include="Utility\Util.cs" />
     <Compile Include="XbeFile.cs" />

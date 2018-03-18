@@ -10,7 +10,7 @@ namespace XbeLib.Utility
     // TODO: Is passing in the whole file really the best use of resources?
     public static class Util
     {
-        public static byte[] SubArray(byte[] data, int index, int length)
+        public static byte[] SubArray(byte[] data, long index, long length)
         {
             byte[] result = new byte[length];
             Array.Copy(data, index, result, 0, length);
