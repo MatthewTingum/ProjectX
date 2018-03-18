@@ -69,6 +69,39 @@ namespace XbeLib
 
         }
 
+        public string GenerateStructMainMD()
+        {
+            string md = "# XBE Structure\n\n";
+            md += "[Image Header](./ImageHeader.MD)";
+            md += "[Certificate](./Certificate.MD)";
+            md += "[Section Headers](./sections/README.MD)";
+            md += "[Library Versions](./libraries/README.MD)";
+            md += "[TLS](./TLS.MD)";
+
+            return md;
+        }
+
+        public string GenerateSectionsMainMD()
+        {
+            string md = "# XBE Sections\n\n";
+            foreach (SectionHeader section in SectionHeaders)
+            {
+                md += String.Format("[{0}](./{0}.MD)\n\n", section.SectionName);
+            }
+
+            return md;
+        }
+
+        public string GenerateLibrariesMainMD()
+        {
+            string md = "# XBE Libraries\n\n";
+            foreach (LibraryVersion version in LibraryVersions)
+            {
+                md += String.Format("[{0}](./{1}.MD)\n\n", version.LibraryName + " - " + version.FullVersion, version.LibraryName);
+            }
+
+            return md;
+        }
 
     }
 }

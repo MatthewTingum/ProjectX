@@ -23,7 +23,7 @@ namespace XbeLib.XbeStructure
         private byte[] _BuildVersion;   // 0x0C [0x02 bytes]
         public int BuildVersion;
 
-        private string _FullVersion;
+        public string FullVersion;
 
         private byte[] _LibraryFlags;   // 0x0E [0x02 bytes]
         public Int16 LibraryFlags;
@@ -44,7 +44,7 @@ namespace XbeLib.XbeStructure
             _BuildVersion = Util.SubArray(library, 0x0C, 0x02);
             BuildVersion = BitConverter.ToInt16(_BuildVersion, 0);
 
-            _FullVersion = String.Format("{0}.{1}.{2}", MajorVersion, MinorVersion, BuildVersion);
+            FullVersion = String.Format("{0}.{1}.{2}", MajorVersion, MinorVersion, BuildVersion);
 
             _LibraryFlags = Util.SubArray(library, 0x0E, 0x02);
             LibraryFlags = BitConverter.ToInt16(_LibraryFlags, 0);
@@ -57,7 +57,7 @@ namespace XbeLib.XbeStructure
 
         public string GenerateMD()
         {
-            string md = "# XBE Library Version - " + LibraryName + " - " + _FullVersion + "\n\n";
+            string md = "# XBE Library Version - " + LibraryName + " - " + FullVersion + "\n\n";
 
             md += MDUtil.MDTableHeader("Field Name", "Description");
             md += MDUtil.MDTableRow("Library Name", LibraryName);
