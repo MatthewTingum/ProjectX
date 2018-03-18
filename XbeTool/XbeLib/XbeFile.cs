@@ -46,9 +46,13 @@ namespace XbeLib
         private byte[] _SectionHeadersAddress;              // 0x120 [0x04 bytes]
         public long SectionHeaderAddress;
 
-        // TODO: Enum me plz!
+
         private byte[] _InitializationFlags;                // 0x124 [0x04 bytes]
         public long Initializationflags;
+        public bool MountUtilityDrive;
+        public bool FormatUtilityDrive;
+        public bool LimitDevkitMemory;
+        public bool DontSetupHarddisk;
 
         private byte[] _EntryPoint;                         // 0x128 [0x04 bytes]
         public long EntryPoint;
@@ -148,7 +152,12 @@ namespace XbeLib
             SectionHeaderAddress = BitConverter.ToUInt32(_SectionHeadersAddress, 0);
 
             _InitializationFlags = SubArray(file, 0x124, 0x04);
-            // TODO: Enum!!!
+            Initializationflags = BitConverter.ToUInt32(_InitializationFlags, 0);
+            var mask = (Enum.InitializationFlags)Initializationflags;
+            MountUtilityDrive = mask.HasFlag(Enum.InitializationFlags.MountUtilityDrive);
+            FormatUtilityDrive = mask.HasFlag(Enum.InitializationFlags.FormatUtilityDrive);
+            LimitDevkitMemory = mask.HasFlag(Enum.InitializationFlags.Limit64Megabytes);
+            DontSetupHarddisk = mask.HasFlag(Enum.InitializationFlags.DontSetupHarddisk);
 
             // TODO: Detect correct XOR key
             // Debug: 0x94859D4B
@@ -190,7 +199,6 @@ namespace XbeLib
             _DebugUnicodeFileNameAddress = SubArray(file, 0x154, 0x04);
             DebugUnicodeFileNameAddress = BitConverter.ToUInt32(_DebugUnicodeFileNameAddress, 0);
             DebugUnicodeFileName = GetUnicodeString(DebugUnicodeFileNameAddress - BaseAddress);
-            // TODO
 
             // TODO: Detect correct XOR key
             // Debug: 0xEFB1F152
@@ -260,6 +268,12 @@ namespace XbeLib
             md += MDUtil.MDTableRow("Number of Sections", NumberOfSections.ToString("X"));
             md += MDUtil.MDTableRow("Section Header Address", SectionHeaderAddress.ToString("X"));
             md += MDUtil.MDTableRow("Initialization Flags", Initializationflags.ToString("X"));
+
+            md += MDUtil.MDTableRow("Mount Utility Drive", MountUtilityDrive.ToString());
+            md += MDUtil.MDTableRow("Format Utility Drive", FormatUtilityDrive.ToString());
+            md += MDUtil.MDTableRow("Limit Devkit Memory", LimitDevkitMemory.ToString());
+            md += MDUtil.MDTableRow("Don't Setup Harddisk", DontSetupHarddisk.ToString());
+
             md += MDUtil.MDTableRow("Entry Point", EntryPoint.ToString("X"));
             md += MDUtil.MDTableRow("TLS Address", TLSAddress.ToString("X"));
             md += MDUtil.MDTableRow("PE Stack Commit", PEStackCommit.ToString("X"));

@@ -10,7 +10,11 @@
 | Certificate Address | 10178 |
 | Number of Sections | 9 |
 | Section Header Address | 10348 |
-| Initialization Flags | 0 |
+| Initialization Flags | 5 |
+| Mount Utility Drive | True |
+| Format Utility Drive | False |
+| Limit Devkit Memory | True |
+| Don't Setup Harddisk | False |
 | Entry Point | 22E35 |
 | TLS Address | 62858 |
 | PE Stack Commit | 10000 |
