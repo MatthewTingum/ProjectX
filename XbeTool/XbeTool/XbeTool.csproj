@@ -54,6 +54,10 @@
       <Project>{faffb79d-76d3-4275-9e3b-7dd373173b23}</Project>
       <Name>XbeLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XMarkDown\XMarkDown.csproj">
+      <Project>{0f0bf45b-3e6a-4bad-8439-ea7521df87aa}</Project>
+      <Name>XMarkDown</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

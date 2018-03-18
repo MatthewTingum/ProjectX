@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -191,6 +192,35 @@ namespace XbeTool.Utility
             md += "## Directory Tree\n\n";
             //md += String.Format("```\n{0}```\n\n", DirTree(directory, directory, true));
             md += String.Format("```\n{0}```\n\n", DirTree(directory));
+
+            return md;
+        }
+
+        public static string GenerateAssetDetailMD(string directory)
+        {
+
+            string[] files = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
+            List<string> filesList = new List<string>(files);
+            filesList.Sort();
+
+            string md = "# Asset Details\n\n";
+            md += XMarkDown.MDUtil.MDTableHeader("File Name", "Size", "MD5", "File Type", "Comments");
+
+            foreach (string file in filesList)
+            {
+                // TODO: best guess file type detection
+                byte[] hash;
+                using (var md5 = MD5.Create())
+                {
+                    using (var stream = File.OpenRead(file))
+                    {
+                        hash = md5.ComputeHash(stream);
+                    }
+                }
+
+                FileInfo fileInfo = new FileInfo(file);
+                md += XMarkDown.MDUtil.MDTableRow(fileInfo.Name, fileInfo.Length.ToString(), BitConverter.ToString(hash).Replace("-", ""), "", "");
+            }
 
             return md;
         }

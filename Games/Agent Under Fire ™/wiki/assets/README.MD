@@ -2,5 +2,5 @@
 
 [Directory Tree](./DirectoryTree.MD)
 
-Asset Details
+[Asset Details](./AssetDetails.MD)
 

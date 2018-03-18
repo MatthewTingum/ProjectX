@@ -82,13 +82,17 @@ namespace XbeTool
             string mdAssets = "";
             mdAssets += "# Assets\n\n";
             mdAssets += "[Directory Tree](./DirectoryTree.MD)\n\n";
-            mdAssets += "Asset Details\n\n";
+            mdAssets += "[Asset Details](./AssetDetails.MD)\n\n";
             File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\README.MD", mdAssets);
 
             // Directory Structure
             Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\");
             string dirTree = Util.GenerateAssetMD(directory);
             File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\DirectoryTree.MD", dirTree);
+
+            // Asset Details
+            string mdAssetDetails = Util.GenerateAssetDetailMD(directory);
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\AssetDetails.MD", mdAssetDetails);
 
         }
     }

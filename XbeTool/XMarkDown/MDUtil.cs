@@ -18,5 +18,15 @@ namespace XMarkDown
         {
             return "| " + column1 + " | " + column2 + " |\n";
         }
+
+        public static string MDTableHeader(string column1, string column2, string column3, string column4, string column5)
+        {
+            return "| " + column1 + " | " + column2 + " | " + column3 + " | " + column4 + " | " + column5 + " |\n|---|---|\n";
+        }
+
+        public static string MDTableRow(string column1, string column2, string column3, string column4, string column5)
+        {
+            return "| " + column1 + " | " + column2 + " | " + column3 + " | " + column4 + " | " + column5 + " |\n";
+        }
     }
 }
