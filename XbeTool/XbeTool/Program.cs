@@ -25,13 +25,9 @@ namespace XbeTool
             }
             else
             {
-                // DEBUG: remove this
-                path = @"C:\Users\matth\Documents\Xbox\ISO\007_Agent_Under_Fire-XBOXiSOZONE\007 Agent Under Fire\default.xbe";
-                directory = Path.GetDirectoryName(path);
-
                 Console.WriteLine("File error: File does not exist. Try dragging and dropping an xbe onto the program.");
-                //Console.ReadLine();
-                //return;
+                Console.ReadLine();
+                return;
             }
 
 
@@ -67,7 +63,7 @@ namespace XbeTool
             string mdMain = "";
             mdMain += "# " + titleName + "\n\n";
             mdMain += "[Xbe Structure](./wiki/xbe/README.MD)\n\n";
-            mdMain += "Assets\n\n";
+            mdMain += "[Assets](./wiki/assets/README.MD)\n\n";
             mdMain += "Archives\n\n";
             mdMain += "Debug Content\n\n";
 
@@ -82,10 +78,17 @@ namespace XbeTool
             string mdSectionsMain = xbe.GenerateSectionsMainMD();
             File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\sections\README.MD", mdSectionsMain);
 
+            // Assets README
+            string mdAssets = "";
+            mdAssets += "# Assets\n\n";
+            mdAssets += "[Directory Tree](./DirectoryTree.MD)\n\n";
+            mdAssets += "Asset Details\n\n";
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\README.MD", mdAssets);
+
             // Directory Structure
             Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\");
             string dirTree = Util.GenerateAssetMD(directory);
-            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\README.MD", dirTree);
+            File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\DirectoryTree.MD", dirTree);
 
         }
     }

@@ -2,7 +2,7 @@
 
 [Xbe Structure](./wiki/xbe/README.MD)
 
-Assets
+[Assets](./wiki/assets/README.MD)
 
 Archives
 
