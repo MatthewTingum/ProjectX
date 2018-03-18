@@ -72,11 +72,11 @@ namespace XbeLib
         public string GenerateStructMainMD()
         {
             string md = "# XBE Structure\n\n";
-            md += "[Image Header](./ImageHeader.MD)";
-            md += "[Certificate](./Certificate.MD)";
-            md += "[Section Headers](./sections/README.MD)";
-            md += "[Library Versions](./libraries/README.MD)";
-            md += "[TLS](./TLS.MD)";
+            md += "[Image Header](./ImageHeader.MD)\n\n";
+            md += "[Certificate](./Certificate.MD)\n\n";
+            md += "[Section Headers](./sections/README.MD)\n\n";
+            md += "[Library Versions](./libraries/README.MD)\n\n";
+            md += "[TLS](./TLS.MD)\n\n";
 
             return md;
         }
