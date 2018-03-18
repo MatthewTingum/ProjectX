@@ -33,7 +33,7 @@ namespace XbeTool.Utility
             return files;
         }
 
-        public static string DirTree(string directory, string basePath)
+        public static string DirTree(string directory, string basePath, bool root)
         {
 
             string files = "";
@@ -41,7 +41,19 @@ namespace XbeTool.Utility
             try
             {
 
-                string[] getDirectories = Directory.GetDirectories(directory);
+                string[] getDirectories;
+
+                if (root)
+                {
+                    List<string> tempDirectories = new List<string>();
+                    tempDirectories.AddRange(Directory.GetDirectories(directory));
+                    tempDirectories.Add(directory);
+                    getDirectories = tempDirectories.ToArray();
+                }
+                else
+                {
+                    getDirectories = Directory.GetDirectories(directory);
+                }
 
                 for (int j = 0; j < getDirectories.Length; j++)
                 {
@@ -89,7 +101,7 @@ namespace XbeTool.Utility
                         files += String.Format("{0}{1}\n", tabs, split[split.Length - 1]);
                     }
 
-                    files += DirTree(getDirectories[j], basePath);
+                    files += DirTree(getDirectories[j], basePath, false);
                 }
             }
             catch (Exception e)
@@ -100,12 +112,85 @@ namespace XbeTool.Utility
             return files;
         }
 
+        public static string DirTree(string directory)
+        {
+            string[] files = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
+            string[] directories = Directory.GetDirectories(directory, "*", SearchOption.AllDirectories);
+
+
+            List<string> directoriesList = directories.ToList();
+            directoriesList.Sort();
+            directories = directoriesList.ToArray();
+
+            string tree = "";
+
+            // List root directory files first
+            foreach (string file in files)
+            {
+                string[] folders = file.Substring(directory.Length).Split('\\');
+                if (folders.Length == 2)
+                {
+                    tree += folders[folders.Length - 1] + "\n";
+                }
+            }
+
+            foreach (string dir in directories)
+            {
+                string originalDir = dir;
+
+                // Find depth of directory
+                string[] folders = dir.Substring(directory.Length).Split('\\');
+
+                string tabs = "";
+                for (int i = 0; i < folders.Length - 3; i++)
+                {
+                    tabs += "|\t";
+                }
+
+                // if not a root directory, link to the parent directory
+                if (folders.Length != 2)
+                {
+                    tabs += "|-------";
+                }
+
+                tree += tabs + "\\" + folders[folders.Length - 1] + "\n";
+
+                tabs = tabs.Replace("|-------", "|   ");
+
+                if (folders.Length != 2)
+                {
+                    tabs += "\t+-------";
+                }
+                else
+                {
+                    tabs += "+-------";
+                }
+
+                // Look for files belonging to directory
+                foreach (string file in files)
+                {
+                    DirectoryInfo di1 = new DirectoryInfo(originalDir);
+                    DirectoryInfo di2 = new DirectoryInfo(file);
+                    if (di2.Parent.FullName == di1.FullName)
+                    {
+                        string[] fileName = file.Split('\\');
+                        
+                        
+                        tree += tabs + " " + fileName[fileName.Length - 1] + "\n";
+                    }
+                }
+            }
+
+            return tree;
+        }
+
         public static string GenerateAssetMD(string directory)
         {
             string md = "# Assets\n\n";
 
             md += "## Directory Tree\n\n";
-            md += String.Format("```\n{0}```\n\n", DirTree(directory, directory));
+            //md += String.Format("```\n{0}```\n\n", DirTree(directory, directory, true));
+            md += String.Format("```\n{0}```\n\n", DirTree(directory));
 
             return md;
         }

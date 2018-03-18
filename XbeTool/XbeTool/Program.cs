@@ -25,9 +25,13 @@ namespace XbeTool
             }
             else
             {
+                // DEBUG: remove this
+                path = @"C:\Users\matth\Documents\Xbox\ISO\007_Agent_Under_Fire-XBOXiSOZONE\007 Agent Under Fire\default.xbe";
+                directory = Path.GetDirectoryName(path);
+
                 Console.WriteLine("File error: File does not exist. Try dragging and dropping an xbe onto the program.");
-                Console.ReadLine();
-                return;
+                //Console.ReadLine();
+                //return;
             }
 
 
