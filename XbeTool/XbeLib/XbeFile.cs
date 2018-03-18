@@ -22,6 +22,7 @@ namespace XbeLib
         public Certificate Certificate;
         public List<SectionHeader> SectionHeaders;
         public List<LibraryVersion> LibraryVersions;
+        public TLS TLS;
 
         public XbeFile(byte[] file)
         {
@@ -41,6 +42,8 @@ namespace XbeLib
             {
                 LibraryVersions.Add(new LibraryVersion(Util.SubArray(file, ImageHeader.LibraryVersionsAddress - ImageHeader.BaseAddress + (i * 0x10), 0x10)));
             }
+
+            TLS = new TLS(Util.SubArray(file, ImageHeader.TLSAddress - ImageHeader.BaseAddress, 0x18));
 
         }
 

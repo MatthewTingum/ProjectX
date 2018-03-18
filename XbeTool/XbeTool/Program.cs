@@ -34,10 +34,11 @@ namespace XbeTool
             foreach (LibraryVersion version in xbe.LibraryVersions)
             {
                 string mdLibraryVersion = version.GenerateMD();
-                Console.WriteLine(version.LibraryName);
                 File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\libraries\" + version.LibraryName + ".MD", mdLibraryVersion);
             }
 
+            string mdTLS = xbe.TLS.GenerateMD();
+            File.WriteAllText(@"..\..\..\..\Games\" + titleName + @"\wiki\TLS.MD", mdTLS);
         }
     }
 }
