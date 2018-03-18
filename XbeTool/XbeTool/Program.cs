@@ -14,7 +14,8 @@ namespace XbeTool
         {
             XbeFile xbe = new XbeFile(File.ReadAllBytes(@".\default.xbe"));
             string markDown = xbe.GenerateMD();
-            File.WriteAllText(@".\README.MD", markDown);
+            //xbe.UnicodeName
+            File.WriteAllText(@"..\..\..\..\Games\GameName\README.MD", markDown);
         }
     }
 }
