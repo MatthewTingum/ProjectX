@@ -13,7 +13,7 @@ namespace XbeTool
         static void Main(string[] args)
         {
             XbeFile xbe = new XbeFile(File.ReadAllBytes(@".\default.xbe"));
-            string markDown = xbe.GenerateMD();
+            string markDown = xbe.ImageHeader.GenerateMD();
             //xbe.UnicodeName
             File.WriteAllText(@"..\..\..\..\Games\GameName\README.MD", markDown);
         }
