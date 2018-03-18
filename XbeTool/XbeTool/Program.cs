@@ -42,6 +42,7 @@ namespace XbeTool
             //Directory.CreateDirectory(@"..\..\..\..\Games\" + titleName + @"\wiki\");
             Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\sections\");
             Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\libraries\");
+            Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\assets\");
             File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\ImageHeader.MD", mdImageHeader);
             File.WriteAllText(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\Certificate.MD", mdCertificate);
 
