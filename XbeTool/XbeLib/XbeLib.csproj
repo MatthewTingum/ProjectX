@@ -44,6 +44,7 @@
     <Compile Include="Enum\GameRatings.cs" />
     <Compile Include="Enum\GameRegions.cs" />
     <Compile Include="Enum\InitializationFlags.cs" />
+    <Compile Include="Enum\SectionFlags.cs" />
     <Compile Include="Utility\Util.cs" />
     <Compile Include="XbeFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

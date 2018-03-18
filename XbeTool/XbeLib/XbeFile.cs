@@ -17,18 +17,25 @@ namespace XbeLib
     public class XbeFile
     {
 
-        private byte[] _File;
+        public byte[] File;
         public ImageHeader ImageHeader;
         public Certificate Certificate;
+        public List<SectionHeader> SectionHeaders;
 
 
         public XbeFile(byte[] file)
         {
 
-            _File = file;
+            File = file;
             ImageHeader = new ImageHeader(file);
             Certificate = new Certificate(Util.SubArray(file, ImageHeader.CertificateAddress - ImageHeader.BaseAddress, 0x1D0));
-            
+            SectionHeaders = new List<SectionHeader>();
+
+            for (int i = 0; i < ImageHeader.NumberOfSections; i++)
+            {
+                SectionHeaders.Add(new SectionHeader(Util.SubArray(file, ImageHeader.SectionHeaderAddress - ImageHeader.BaseAddress + (i * 0x38), 0x38), File, ImageHeader.BaseAddress));
+            }
+
         }
 
         // Retail
