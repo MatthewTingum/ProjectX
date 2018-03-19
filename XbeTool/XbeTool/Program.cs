@@ -25,9 +25,11 @@ namespace XbeTool
             }
             else
             {
-                Console.WriteLine("File error: File does not exist. Try dragging and dropping an xbe onto the program.");
-                Console.ReadLine();
-                return;
+                path = @"C:\Users\matth\Documents\Xbox\ISO\BurgerKing\default.xbe";
+                directory = Path.GetDirectoryName(path);
+                //Console.WriteLine("File error: File does not exist. Try dragging and dropping an xbe onto the program.");
+                //Console.ReadLine();
+                //return;
             }
 
 
@@ -39,6 +41,11 @@ namespace XbeTool
             string mdCertificate = xbe.Certificate.GenerateMD();
 
             string titleName = xbe.Certificate.TitleName;
+
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                titleName = titleName.Replace(c.ToString(), "");
+            }
             //Directory.CreateDirectory(@"..\..\..\..\Games\" + titleName + @"\wiki\");
             Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\sections\");
             Directory.CreateDirectory(exeDirectory + @"..\..\..\..\Games\" + titleName + @"\wiki\xbe\libraries\");
