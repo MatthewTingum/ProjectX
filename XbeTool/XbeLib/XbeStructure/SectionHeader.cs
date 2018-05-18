@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using XbeLib.Utility;
@@ -10,6 +12,8 @@ namespace XbeLib.XbeStructure
 {
     public class SectionHeader
     {
+
+        private byte[] _File;
 
         private byte[] _SectionHeader;
 
@@ -53,6 +57,7 @@ namespace XbeLib.XbeStructure
 
         public SectionHeader(byte[] sectionHeader, byte[] xbe, long baseAddress)
         {
+            _File = xbe;
             _SectionHeader = sectionHeader;
 
             _SectionFlags = Util.SubArray(sectionHeader, 0x00, 0x04);
@@ -117,6 +122,39 @@ namespace XbeLib.XbeStructure
             md += MDUtil.MDTableRow("Section Digest", BitConverter.ToString(SectionDigest).Replace("-", " "));
 
             return md;
+        }
+
+        public byte[] CalculateDigest()
+        {
+
+            byte[] section = Util.SubArray(_File, RawAddress, RawSize);
+
+            List<byte> list = new List<byte>(section);
+            list.InsertRange(0, _RawSize);
+            section = list.ToArray();
+
+            byte[] hash;
+
+            using (SHA1 sha1 = SHA1.Create())
+            {
+                hash = sha1.ComputeHash(section);
+            }
+
+
+            return hash;
+
+        }
+
+        public bool VerifyDigest()
+        {
+            if (CalculateDigest().SequenceEqual(SectionDigest))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

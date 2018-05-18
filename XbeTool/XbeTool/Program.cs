@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using XbeLib;
+using XbeLib.Crypto;
 using XbeLib.XbeStructure;
 using XbeTool.Utility;
 
@@ -25,17 +27,19 @@ namespace XbeTool
             }
             else
             {
-                path = @"C:\Users\matth\Documents\Xbox\ISO\BurgerKing\default.xbe";
-                directory = Path.GetDirectoryName(path);
-                //Console.WriteLine("File error: File does not exist. Try dragging and dropping an xbe onto the program.");
-                //Console.ReadLine();
-                //return;
+                //path = @"C:\Users\matth\Documents\Xbox\ISO\XBLA\default.xbe";
+                //directory = Path.GetDirectoryName(path);
+                Console.WriteLine("File error: File does not exist. Try dragging and dropping an xbe onto the program.");
+                Console.ReadLine();
+                return;
             }
 
 
             string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
             XbeFile xbe = new XbeFile(File.ReadAllBytes(path));
+
+            xbe.VerifyIntegrity(true);
 
             string mdImageHeader = xbe.ImageHeader.GenerateMD();
             string mdCertificate = xbe.Certificate.GenerateMD();

@@ -21,7 +21,7 @@ namespace XbeLib.XbeStructure
         private byte[] _BaseAddress;                        // 0x104 [0x04 bytes]
         public long BaseAddress;
 
-        private byte[] _SizeOfHeaders;                      // 0x108 [0x04 bytes]
+        public byte[] _SizeOfHeaders;                      // 0x108 [0x04 bytes]
         public long SizeOfHeaders;
 
         private byte[] _SizeOfImage;                        // 0x10C [0x04 bytes]
