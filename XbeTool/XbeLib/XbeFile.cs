@@ -65,12 +65,21 @@ namespace XbeLib
 
         }
 
-        public bool VerifyIntegrity(bool verbose)
+        public bool VerifyIntegrity(bool verbose, bool green)
         {
 
             bool valid = true;
 
-            byte[] decryptedSignature = PublicKey.Decrypt(ImageHeader.DigitalSignature);
+            byte[] decryptedSignature;
+
+            if (green)
+            {
+                decryptedSignature = PublicKey.Decrypt(ImageHeader.DigitalSignature);
+            }
+            else
+            {
+                decryptedSignature = PublicKey.DecryptRed(ImageHeader.DigitalSignature);
+            }
 
             if (verbose)
             {

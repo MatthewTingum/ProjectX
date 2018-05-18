@@ -4,6 +4,7 @@ XbeLib/bin/
 XbeLib/obj/
 XMarkDown/bin/
 XMarkDown/obj/
+XbeLib/Crypto/keys/
 .vs/
 *.exe
 *.dll

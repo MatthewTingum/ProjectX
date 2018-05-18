@@ -28,6 +28,7 @@ namespace XbeTool
             else
             {
                 //path = @"C:\Users\matth\Documents\Xbox\ISO\XBLA\default.xbe";
+                //path = @"C:\Users\matth\Documents\Xbox\ISO\RedTest\default.xbe";
                 //directory = Path.GetDirectoryName(path);
                 Console.WriteLine("File error: File does not exist. Try dragging and dropping an xbe onto the program.");
                 Console.ReadLine();
@@ -39,7 +40,9 @@ namespace XbeTool
 
             XbeFile xbe = new XbeFile(File.ReadAllBytes(path));
 
-            xbe.VerifyIntegrity(true);
+           // xbe.VerifyIntegrity(true, false);
+
+            xbe.VerifyIntegrity(true, true);
 
             string mdImageHeader = xbe.ImageHeader.GenerateMD();
             string mdCertificate = xbe.Certificate.GenerateMD();

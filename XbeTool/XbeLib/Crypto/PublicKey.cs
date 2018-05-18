@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
@@ -51,5 +52,37 @@ namespace XbeLib.Crypto
             signature = signature.Reverse().ToArray();
             return signature;
         }
+
+        // You will need to provide your own `Red Public` key ;)
+        // Search some places you think it might be. It will be prefixed with the following bytes:
+        // 52 53 41 32 08 01 00 00 00 08 00 00 FF 00 00 00 01 00 01 00
+        // 0x100 bytes long. No need to include the prefix
+        public static byte[] DecryptRed(byte[] signature)
+        {
+
+            byte[] redPublic;
+
+            try
+            {
+                redPublic = File.ReadAllBytes(@".\keys\RedPublic.bin");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error reading 'Red Public Key'");
+                Console.WriteLine(exception.Message);
+                Console.WriteLine("Save your 'Red Public Key' as a file named 'RedPublic.bin' in a folder named 'keys'\n");
+                return new byte[] { };
+            }
+
+            BigInteger n = PrepareBigInteger(redPublic.Reverse().ToArray());
+            BigInteger e = 65537;
+            BigInteger msg = PrepareBigInteger(signature.Reverse().ToArray());
+
+            BigInteger decryptedInt = BigInteger.ModPow(msg, e, n);
+            signature = decryptedInt.ToByteArray().Reverse().ToArray();
+            signature = signature.Reverse().ToArray();
+            return signature;
+        }
+
     }
 }
